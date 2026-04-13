@@ -22,21 +22,45 @@ const saludPorcentaje = 0.4;
 //condicionales
 if (edad < 18) {
   // Si el usuario es menor de edad
-  console.log("No es posible continuar con el siguiente paso ni calcular las prestaciones de ley.");
+  console.log("No es posible continuar con el siguiente paso ni calcular las prestaciones de ley");
 
 } else if (edad < 25) {
   // Si es mayor o igual a 18, pero menor de 25 años
-  console.log("Usuario beneficiario por cotizante. No es posible continuar al siguiente paso.");
+  console.log("Usuario beneficiario por cotizante. No es posible continuar al siguiente paso");
 
 } else if (edad >= 60) {
   // Si la edad es 60 años o más
-  console.log("Solo se calculará el pago de la pensión. Por favor, ingrese la información de su mesada pensional en el siguiente paso.");
+  console.log("Solo se calculará el pago de la pensión. Por favor, ingrese la información de su mesada pensional en el siguiente paso");
 
 } else {
   // Si no cumple ninguna de las anteriores (es decir, tiene entre 25 y 59 años)
-  console.log("Puede continuar con el siguiente paso del proceso.");
+  console.log("Puede continuar con el siguiente paso del proceso");
   
 }
 
+// Calculos
 
+// 1. Devengado 
+let totalDevengado = salario + comisiones + horasextra; 
+
+//Calculo del ibc
+let ibc = 0;
+if (salario >= salarioIntegral) {
+  ibc = totalDevengado * 0.70;
+} else {
+  ibc = totalDevengado; 
+}
+
+//auxilio de Transporte
+let auxilioTransporte = 0;
+if (salario <= (salarioMinimo * 2)) {
+  auxilioTransporte = transporte;
+}
+
+// Salud (4% sobre el IBC)
+let pagoSalud = ibc * 0.04;
+
+// Pensión y Fondo de Solidaridad Pensional (FSP)
+let pagoPension = ibc * 0.04;
+let pagoFSP = 0;
 
