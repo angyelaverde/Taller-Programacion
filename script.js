@@ -68,7 +68,6 @@ let pagoFSP = 0;
 if (ibc >= (salarioMinimo * 4)) {
   pagoFSP = ibc * 0.01;
 }
-
 let totalPension = pagoPension + pagoFSP;
 
 // 6. ARL según el nivel de riesgo
@@ -93,11 +92,9 @@ switch (riesgo) {
   default:
     porcentajeARL = 0; // Por si el usuario no ingresa un nivel válido
 }
-
 let pagoARL = ibc * porcentajeARL;
 
 // 7. Retención en la Fuente (Punto extra)
-
 let baseGravable = totalDevengado - pagoSalud - pagoPension;
 
 
