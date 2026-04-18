@@ -62,5 +62,42 @@ let pagoSalud = ibc * 0.04;
 
 // Pensión y Fondo de Solidaridad Pensional (FSP)
 let pagoPension = ibc * 0.04;
-let pagoFSP = 0;
+let pagoFSP = 0; 
+
+// Si el IBC es mayor o igual a 4 salarios mínimos, paga 1% de FSP
+if (ibc >= (salarioMinimo * 4)) {
+  pagoFSP = ibc * 0.01;
+}
+
+let totalPension = pagoPension + pagoFSP;
+
+// 6. ARL según el nivel de riesgo
+
+let porcentajeARL = 0;
+switch (riesgo) {
+  case "1": 
+    porcentajeARL = 0.00522; // Riesgo I: 0.522%
+    break;
+  case "2": 
+    porcentajeARL = 0.01044; // Riesgo II: 1.044%
+    break;
+  case "3": 
+    porcentajeARL = 0.02436; // Riesgo III: 2.436%
+    break;
+  case "4": 
+    porcentajeARL = 0.04350; // Riesgo IV: 4.350%
+    break;
+  case "5": 
+    porcentajeARL = 0.06960; // Riesgo V: 6.960%
+    break;
+  default:
+    porcentajeARL = 0; // Por si el usuario no ingresa un nivel válido
+}
+
+let pagoARL = ibc * porcentajeARL;
+
+// 7. Retención en la Fuente (Punto extra)
+
+let baseGravable = totalDevengado - pagoSalud - pagoPension;
+
 
