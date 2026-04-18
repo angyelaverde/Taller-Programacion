@@ -1,3 +1,5 @@
+// Angye Paola Laverde Perez 1031812584
+
 //definicion de variables 
 let nombreCompleto="";
 let edad= 0;
