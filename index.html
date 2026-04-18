@@ -6,6 +6,45 @@
     <title>Document</title>
 </head>
 <body>
-    <script src="script.js"></script>
+    <script src="script.js"></script> 
+    <form id="simulador-form">
+    <h3>Información Básica</h3>
+    <input type="text" id="nombre" placeholder="Nombre completo" required>
+    <input type="number" id="edad" placeholder="Edad" required>
+    
+    <select id="tipo-doc">
+        <option value="RC">Registro Civil</option>
+        <option value="TI">Tarjeta de Identidad</option>
+        <option value="CC">Cédula de Ciudadanía</option>
+        </select>
+    
+    <input type="number" id="num-doc" placeholder="Número de documento">
+
+    <h3>Información Salarial</h3>
+    <input type="number" id="salario" placeholder="Salario base (COP)">
+    <input type="number" id="comisiones" placeholder="Comisiones">
+    <input type="number" id="horas-extra" placeholder="Total horas extra">
+    
+    <select id="riesgo-arl">
+        <option value="0.00522">Riesgo I (Mínimo)</option>
+        <option value="0.01044">Riesgo II (Bajo)</option>
+        </select>
+
+    <button type="button" onclick="calcularPrestaciones()">Calcular</button>
+</form> 
+<div id="seccion-resultados">
+    <h2>Resumen de Pago de Prestaciones</h2>
+    <p><strong>Salario:</strong> <span id="res-salario"></span></p>
+    <p><strong>Ingreso Base de Cotización (IBC):</strong> <span id="res-ibc"></span></p>
+    
+    <hr>
+    <p><strong>Desglose de Ingresos (Fórmula):</strong></p>
+    <p id="res-formula-ingresos"></p> <p><strong>Deducibles:</strong></p>
+    <ul id="res-deducibles">
+        </ul>
+    
+    <h3><strong>Total Neto a Recibir:</strong> <span id="res-total"></span></h3>
+</div> 
+
 </body>
 </html>
