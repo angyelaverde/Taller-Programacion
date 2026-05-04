@@ -1,16 +1,16 @@
 // Angye Paola Laverde Perez 1031812584
 
 //definicion de variables 
-let nombreCompleto="";
-let edad= 0;
-let tipoDocumento="";
-let numeroDocumento= ""; 
+let nombreCompleto = prompt("Ingresa tu nombre completo:");
+let edad = parseInt(prompt("Ingresa tu edad:"));
+let tipoDocumento = prompt("Tipo de documento:");
+let numeroDocumento = prompt("Número de documento:")
 
 // Siguiente paso
-let salario = 0;
-let comisiones = 0;
-let horasextra = 0;
-let riesgo = "";
+let salario = parseFloat(prompt("Ingresa tu salario:"));
+let comisiones = parseFloat(prompt("Ingresa tus comisiones:"));
+let horasextra = parseInt(prompt("Ingresa tu numero de horas extra:"));
+let riesgo = parseFloat(prompt("Ingresa tu valor de riesgo:"));
 
 // Valores
 const salarioMinimo = 1750905;
