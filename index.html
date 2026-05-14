@@ -1,52 +1,96 @@
-// Angye Paola Laverde Perez 1031812584
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
+    <!-- Angye Paola Laverde Perez 1031812584 -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title> 
+    <title>Simulador de Prestaciones Laborales 2026</title>
     <link rel="stylesheet" href="estilos.css">
 </head>
 <body>
-    <script src="script.js"></script> 
-    <form id="simulador-form">
-    <h3>Información Básica</h3>
-    <input type="text" id="nombre" placeholder="Nombre completo" required>
-    <input type="number" id="edad" placeholder="Edad" required>
-    
-    <select id="tipo-doc">
-        <option value="RC">Registro Civil</option>
-        <option value="TI">Tarjeta de Identidad</option>
-        <option value="CC">Cédula de Ciudadanía</option>
-        </select>
-    
-    <input type="number" id="num-doc" placeholder="Número de documento">
 
-    <h3>Información Salarial</h3>
-    <input type="number" id="salario" placeholder="Salario base (COP)">
-    <input type="number" id="comisiones" placeholder="Comisiones">
-    <input type="number" id="horasextra" placeholder="Total horas extra">
-    
-    <select id="riesgo-arl">
-        <option value="0.00522">Riesgo I (Mínimo)</option>
-        <option value="0.01044">Riesgo II (Bajo)</option>
+    <h1>Simulador de Prestaciones Laborales 2026</h1>
+
+    <!-- PASO 1: INFORMACIÓN BÁSICA -->
+    <div id="paso-1">
+        <h2>Paso 1 - Información Básica</h2>
+
+        <label for="nombre">Nombre completo:</label>
+        <input type="text" id="nombre" placeholder="Ej: María García">
+
+        <label for="edad">Edad:</label>
+        <input type="number" id="edad" placeholder="Ej: 30" min="0" max="85">
+
+        <label for="tipo-doc">Tipo de documento:</label>
+        <select id="tipo-doc">
+            <option value="">-- Selecciona --</option>
+            <option value="CC">CC - Cédula de Ciudadanía</option>
+            <option value="CE">CE - Cédula de Extranjería</option>
         </select>
 
-    <button type="button" onclick="calcularPrestaciones()">Calcular</button>
-</form> 
-<div id="seccion-resultados">
-    <h2>Resumen de Pago de Prestaciones</h2>
-    <p><strong>Salario:</strong> <span id="res-salario"></span></p>
-    <p><strong>Ingreso Base de Cotización (IBC):</strong> <span id="res-ibc"></span></p>
-    
-    <hr>
-    <p><strong>Desglose de Ingresos (Fórmula):</strong></p>
-    <p id="res-formula-ingresos"></p> <p><strong>Deducibles:</strong></p>
-    <ul id="res-deducibles">
-        </ul>
-    
-    <h3><strong>Total Neto a Recibir:</strong> <span id="res-total"></span></h3>
-</div> 
+        <label for="num-doc">Número de documento (sin puntos ni comas):</label>
+        <input type="number" id="num-doc" placeholder="Ej: 1031812584">
 
+        <p id="alerta-perfil" class="alerta"></p>
+
+        <button onclick="validarPerfil()">Continuar</button>
+    </div>
+
+    <!-- PASO 2: INFORMACIÓN SALARIAL -->
+    <div id="paso-2" class="oculto">
+        <h2 id="titulo-paso2">Paso 2 - Información Salarial</h2>
+
+        <label for="salario" id="label-salario">Salario base (COP):</label>
+        <input type="text" id="salario" placeholder="Ej: 3000000">
+
+        <div id="campos-extra">
+            <label for="comisiones">Comisiones (COP):</label>
+            <input type="text" id="comisiones" placeholder="Ej: 500000">
+
+            <label for="horasextra">Horas extra (COP):</label>
+            <input type="text" id="horasextra" placeholder="Ej: 200000">
+
+            <label for="riesgo-arl">Nivel de riesgo ARL:</label>
+            <select id="riesgo-arl">
+                <option value="">-- Selecciona --</option>
+                <option value="0.00522">Riesgo I - Mínimo (0.522%)</option>
+                <option value="0.01044">Riesgo II - Bajo (1.044%)</option>
+                <option value="0.02436">Riesgo III - Medio (2.436%)</option>
+                <option value="0.04350">Riesgo IV - Alto (4.350%)</option>
+                <option value="0.06960">Riesgo V - Máximo (6.960%)</option>
+            </select>
+        </div>
+
+        <button onclick="volverPaso1()">Volver</button>
+        <button onclick="calcularPrestaciones()">Calcular</button>
+    </div>
+
+    <!-- PASO 3: RESULTADOS -->
+    <div id="paso-3" class="oculto">
+        <h2>Resultados</h2>
+
+        <p><strong>Nombre:</strong> <span id="res-nombre"></span></p>
+        <p><strong>Salario:</strong> <span id="res-salario"></span></p>
+        <p><strong>Auxilio de transporte:</strong> <span id="res-transporte"></span></p>
+        <p><strong>Comisiones:</strong> <span id="res-comisiones"></span></p>
+        <p><strong>Horas extra:</strong> <span id="res-horasextra"></span></p>
+        <p><strong>IBC (Ingreso Base de Cotización):</strong> <span id="res-ibc"></span></p>
+
+        <hr>
+        <h3>Deducciones</h3>
+        <p><strong>Salud (4%):</strong> <span id="res-salud"></span></p>
+        <p><strong>Pensión (4%):</strong> <span id="res-pension"></span></p>
+        <p id="fila-fsp"><strong>Fondo Solidaridad Pensional (1%):</strong> <span id="res-fsp"></span></p>
+        <p><strong>ARL:</strong> <span id="res-arl"></span></p>
+        <p><strong>Retención en la fuente:</strong> <span id="res-retencion"></span></p>
+        <p><strong>Total deducciones:</strong> <span id="res-total-ded"></span></p>
+
+        <hr>
+        <p class="total"><strong>Total neto a recibir:</strong> <span id="res-total"></span></p>
+
+        <button onclick="reiniciar()">Nuevo cálculo</button>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
